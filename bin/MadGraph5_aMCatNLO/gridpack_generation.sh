@@ -19,6 +19,8 @@
 #If QUEUE_SELECTION is omitted, then run on local machine only (using multiple cores)    #
 ##########################################################################################
 
+cd newGenproductions/bin/MadGraph5_aMCatNLO
+
 # Create tarball with very aggressive xz settings.
 # (trade memory and cpu usage for compression ratio)
 make_tarball () {
@@ -47,6 +49,18 @@ make_tarball () {
         EXTRA_TAR_ARGS+="merge.pl "
     fi
     XZ_OPT="$XZ_OPT" tar -cJpf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
+
+    echo "Created gridpack, now transferring to EOS area"
+    # Move back to the MadGraph directory in genproductions
+    cd ../../../..
+    pwd
+    ls
+    # Now move over to the EOS area
+    mkdir -p /eos/user/e/ecurtis/idmFilesEOS/gridpacks/${PROCESSNAME}/${name}/;
+    cp ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz /eos/user/e/ecurtis/idmFilesEOS/gridpacks/${PROCESSNAME}/${name}/.
+    #mv ${PRODHOME}/${name}/ /eos/user/e/ecurtis/idmFilesEOS/gridpacks/${PROCESSNAME}/${name}/.
+    cp $LOGFILE /eos/user/e/ecurtis/idmFilesEOS/gridpacks/${PROCESSNAME}/${name}/.
+  
 
     echo "Gridpack created successfully at ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz"
     echo "End of job"
@@ -188,6 +202,7 @@ make_gridpack () {
       #############################################
     
       cd $MGBASEDIRORIG
+      cp -r $PRODHOME/InertDoublet_UFO models/.
       cat $PRODHOME/patches/*.patch | patch -p1
       cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
 
@@ -740,6 +755,11 @@ else
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
     fi
+fi
+
+#set cmssw 
+if [ -n "$7" ]; then
+    PROCESSNAME=${7}
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
