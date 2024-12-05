@@ -1,0 +1,17 @@
+main_dir=/vols/cms/emc21/idmStudy/MCproduction/gridpackProduction/genproductions/bin/MadGraph5_aMCatNLO/cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu_biggerLam345
+executable = condor_run_get_widths_otherway.sh
+output = $(main_dir)/logs/$(mH)_$(mA)_$(mHch)_$(lam).out
+error = $(main_dir)/logs/$(mH)_$(mA)_$(mHch)_$(lam).err
+log = $(main_dir)/logs/$(mH)_$(mA)_$(mHch)_$(lam).log
+
+
+process=idm_dilepton
+base_dir=$(main_dir)/cards/mH$(mH)
+JobBatchName = CreatingCards
+
+arguments = "$(mH) $(mA) $(mHch) $(lam) idm_dilepton $(base_dir)"
+
++MaxRuntime = 7200
++OnExitHold   = ExitStatus != 0
+getenv        = True
+queue mH, mA, mHch, lam from cards/test_arguments.txt

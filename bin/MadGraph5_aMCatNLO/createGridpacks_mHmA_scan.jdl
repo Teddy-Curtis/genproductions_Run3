@@ -1,0 +1,41 @@
+# This file creates all of the gridpacks, then sends them over the the myFiles
+# directory on EOS
+# Name of the process:
+tag = idm_dilepton
+outputname = idm_dilepton_13p6_parameterscan_updatedWidths_CMSSW_12_4_8
+
+# These define the arguments for input
+scram_version=el8_amd64_gcc10
+CMSSW_version=CMSSW_12_4_8
+run_name=$(tag)_mH$(mH)_mA$(mA)
+run_folder=cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu/cards/13p6/mH$(mH)/$(tag)_mH$(mH)_mA$(mA)
+
+
+Executable = gridpack_generation.sh
+
+# have to do logging on afs
+home=/afs/cern.ch/user/e/ecurtis/idmStudyImperial
+output = $(home)/logging/$(tag)_mH$(mH)_mA$(mA)_NewGenProd_SDEstrategy1.out
+error = $(home)/logging/$(tag)_mH$(mH)_mA$(mA)_NewGenProd_SDEstrategy1.err
+log = $(home)/logging/$(tag)_mH$(mH)_mA$(mA)_NewGenProd_SDEstrategy1.log
+
+
+arguments = $(run_name) $(run_folder) local ALL $(scram_version) $(CMSSW_version) $(outputname)
+
+Transfer_Input_Files = /afs/cern.ch/user/e/ecurtis/idmStudyImperial/MCproduction/newGenproductions
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Transfer_Output_Files = ""
+Universe = vanilla
+Initialdir = .
+getenv = False
+#+MaxRuntime=14400
++JobFlavour = "nextweek"
+#+JobFlavour = "testmatch"
+RequestCpus = 8
+
+MY.WantOS = "el8"
+
+
+queue mH, mA from cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu/cards/13p6/to_fix.txt
+

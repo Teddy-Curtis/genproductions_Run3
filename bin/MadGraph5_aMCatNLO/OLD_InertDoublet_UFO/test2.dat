@@ -1,0 +1,73 @@
+Block frblock
+1 7.757952e-03 # aEWM1
+2 1.166370e-05 # Gf
+3 9.118760e+01 # MMZ
+4 8.03695e+01 # MMW
+5 1.200000e+00 # MMC
+6 4.230000e+00 # MMB
+7 1.750000e+02 # MMT
+8 1.172000e-01 # aS
+9 1.000000e+02 # QS
+10	-0.009	 # lamL
+11	0.1935	 # lam2
+12	125.1	 # mmh
+13	147	 # mmH0
+14	194.647	 # mmA0
+15	197.403	 # mmHch
+16  1.e0  # aah
+17  1.e0  # ggh
+
+Block mass
+ 1 0.000000e+00 # MD
+   2 0.000000e+00 # MU
+  3 1.000000e-01 # MS
+ 11 0.000000e+00 # Me 
+ 12 0.000000e+00 # Mnue
+ 13 1.057000e-01 # MM 
+ 14 0.000000e+00 # Mnum 
+ 15 1.777000e+00 # MTA 
+ 16 0.000000e+00 # Mnut 
+ 4 1.200000 # c : MMC 
+ 5 4.230000 # b : MMB
+ 6 175.000000 # t : MMT
+ 21 0.000000 # g : 0.0 
+ 22 0.000000 # a : 0.0 
+ 23 91.187600 # z : MMZ
+ 24 8.03695e+01  # w+ : MMW 
+25	125.1 # h : mmh
+35	147 # h2 : mmH0
+36	194.647 # h3 : mmA0
+37	197.403 # h+ : mmHch
+#     PDG   Width
+DECAY  6     1.33806940e+00   # top decays
+#            BR          NDA    ID1   ID2
+       7.53726451e-05     2      24     1
+       1.63658200e-03     2      24     3
+       9.98288045e-01     2      24     5
+DECAY  25     4.35223827e-03   # h decays,SM-like Higgs
+DECAY  35     0.00000000e+00   # h2 decays, second CP-even Higgs
+DECAY  36     1.05526657e-04   # h3 decays, CP-odd Higgs
+#            BR          NDA    ID1   ID2
+       1.00000000e+00     2      23    35
+DECAY  37     3.67497390e-04   # Charged Higgs decays
+#            BR          NDA    ID1   ID2
+       1.00000000e+00     2      24    35
+#
+
+
+Block QNUMBERS 35  # h2
+1 0  # 3 times electric charge
+2 1  # number of spin states (2S+1)
+3 1  # colour rep (1: singlet, 3: triplet, 8: octet)
+4 0  # Particle/Antiparticle distinction (0=own anti)
+Block QNUMBERS 36  # h3
+1 0  # 3 times electric charge
+2 1  # number of spin states (2S+1)
+3 1  # colour rep (1: singlet, 3: triplet, 8: octet)
+4 0  # Particle/Antiparticle distinction (0=own anti)
+Block QNUMBERS 37  # h+ 
+1 3  # 3 times electric charge
+2 1  # number of spin states (2S+1)
+3 1  # colour rep (1: singlet, 3: triplet, 8: octet)
+4 1  # Particle/Antiparticle distinction (0=own anti)
+

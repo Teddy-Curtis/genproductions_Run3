@@ -1,0 +1,15 @@
+
+executable = condor_run_get_widths_otherway.sh
+output = /vols/cms/emc21/idmStudy/MCproduction/gridpackProduction/genproductions/bin/MadGraph5_aMCatNLO/cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu_varyMHch/logs/$(mH)_$(mA)_$(mHch).out
+error = /vols/cms/emc21/idmStudy/MCproduction/gridpackProduction/genproductions/bin/MadGraph5_aMCatNLO/cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu_varyMHch/logs/$(mH)_$(mA)_$(mHch).err
+log = /vols/cms/emc21/idmStudy/MCproduction/gridpackProduction/genproductions/bin/MadGraph5_aMCatNLO/cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu_varyMHch/logs/$(mH)_$(mA)_$(mHch).log
+
+base_dir=/vols/cms/emc21/idmStudy/MCproduction/gridpackProduction/genproductions/bin/MadGraph5_aMCatNLO/cards/iDMParameterScanUpdatedWidths_mHmA_noLLLNu_varyMHch/cards/mH$(mH)
+JobBatchName = CreatingCards
+
+arguments = "$(mH) $(mA) $(mHch) idm_dilepton $(base_dir)"
+
++MaxRuntime = 7200
++OnExitHold   = ExitStatus != 0
+getenv        = True
+queue mH, mA, mHch from cards/test_arguments.txt
